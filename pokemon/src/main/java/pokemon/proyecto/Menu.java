@@ -42,8 +42,8 @@ public class Menu {
 
                             if (victoria) {
                                 int recompensa = 500 * (gym.getEntrenadores().indexOf(entrenador) + 1);
-                                Main.dinero += recompensa;
-                                System.out.println("¡Has ganado $" + recompensa + "!");
+                                Main.cliricomblins += recompensa;
+                                System.out.println("¡Has ganado " + recompensa + " Cliricomblins!");
 
                                 System.out.println("\n¡Has derrotado a " + entrenador.getNombre() + "!");
                                 System.out.println("Experiencia total ganada: " + expGanada);
@@ -110,40 +110,40 @@ public class Menu {
 
     private static void tienda(Scanner sc) {
         System.out.println("\n--- Tienda ---");
-        System.out.println("Dinero: $" + Main.dinero);
-        System.out.println("1. Poción ($200) - Restaura 50 PS");
-        System.out.println("2. Superpoción ($500) - Restaura 150 PS");
-        System.out.println("3. Revivir ($800) - Revive a un Pokémon debilitado y restaura toda su vida");
+        System.out.println("Cliricomblins: " + Main.cliricomblins);
+        System.out.println("1. Poción (200 Cliricomblins) - Restaura 50 PS");
+        System.out.println("2. Superpoción (500 Cliricomblins) - Restaura 150 PS");
+        System.out.println("3. Revivir (800 Cliricomblins) - Revive a un Pokémon debilitado y restaura toda su vida");
         System.out.println("4. Salir");
         System.out.print("Elige: ");
         String opcion = sc.nextLine();
 
         switch(opcion) {
             case "1":
-                if (Main.dinero >= 200) {
+                if (Main.cliricomblins >= 200) {
                     mochila.agregarItem("Poción", 1);
-                    Main.dinero -= 200;
+                    Main.cliricomblins -= 200;
                     System.out.println("¡Has comprado una Poción!");
                 } else {
-                    System.out.println("¡No tienes suficiente dinero!");
+                    System.out.println("¡No tienes suficientes Cliricomblins!");
                 }
                 break;
             case "2":
-                if (Main.dinero >= 500) {
+                if (Main.cliricomblins >= 500) {
                     mochila.agregarItem("Superpoción", 1);
-                    Main.dinero -= 500;
+                    Main.cliricomblins -= 500;
                     System.out.println("¡Has comprado una Superpoción!");
                 } else {
-                    System.out.println("¡No tienes suficiente dinero!");
+                    System.out.println("¡No tienes suficientes Cliricomblins!");
                 }
                 break;
             case "3":
-                if (Main.dinero >= 800) {
+                if (Main.cliricomblins >= 800) {
                     mochila.agregarItem("Revivir", 1);
-                    Main.dinero -= 800;
+                    Main.cliricomblins -= 800;
                     System.out.println("¡Has comprado un Revivir!");
                 } else {
-                    System.out.println("¡No tienes suficiente dinero!");
+                    System.out.println("¡No tienes suficientes Cliricomblins!");
                 }
                 break;
         }
