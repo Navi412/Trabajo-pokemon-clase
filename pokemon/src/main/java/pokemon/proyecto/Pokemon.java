@@ -55,6 +55,12 @@ public class Pokemon {
         this.vidaMaxima = (int)(this.vidaMaxima * 1.2);
         // NO restaurar vida al máximo al subir de nivel
         this.experienciaParaSubir += 25;
+        
+        // NUEVO: Aumentar el daño de los ataques al subir de nivel (5% por nivel)
+        for (Ataque ataque : ataques) {
+            int nuevoValor = (int)(ataque.getDaño() * 1.05);
+            ataque.setDaño(nuevoValor);
+        }
     }
 
     public void mostrarStats() {
