@@ -16,4 +16,9 @@ public class Ataque {
     public int getDaño() {
         return daño;
     }
+    
+    // Añadido para poder aumentar el daño al subir de nivel
+    public void setDaño(int daño) {
+        this.daño = daño;
+    }
 }
