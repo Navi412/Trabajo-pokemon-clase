@@ -1,0 +1,169 @@
+package pokemon.proyecto;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Combate {
+    private static Scanner sc = new Scanner(System.in);
+
+    public static boolean iniciarCombate(ArrayList<Pokemon> equipo, Pokemon enemigo) {
+        boolean combateTerminado = false;
+        boolean victoria = false;
+
+        // Elegir Pokémon inicial que no esté debilitado
+        while (equipo.size() > 1 && equipo.get(0).estaDebilitado()) {
+            System.out.println("\n--- Elige el Pokémon para comenzar el combate ---");
+            printNombresEquipo(equipo);
+            int opcionInicial = 0;
+            while (opcionInicial < 1 || opcionInicial > equipo.size() || equipo.get(opcionInicial - 1).estaDebilitado()) {
+                System.out.print("Elige un Pokémon (1-" + equipo.size() + ", no debilitado): ");
+                opcionInicial = sc.nextInt();
+            }
+            if (opcionInicial != 1) {
+                Collections.swap(equipo, 0, opcionInicial - 1);
+            }
+        }
+
+        while (!combateTerminado && hayPokemonVivo(equipo) && enemigo.estaVivo()) {
+            System.out.println("\n--- Estado del combate ---");
+            System.out.println("Tu Pokémon activo:");
+            equipo.get(0).mostrarStats();
+            System.out.println("Enemigo:");
+            enemigo.mostrarStats();
+
+            System.out.println("\n¿Qué quieres hacer?");
+            System.out.println("1. Atacar");
+            System.out.println("2. Cambiar Pokémon");
+            System.out.println("3. Usar objeto");
+            System.out.println("4. Huir");
+            int opcionTurno = 0;
+            while (opcionTurno < 1 || opcionTurno > 4) {
+                System.out.print("Opción: ");
+                opcionTurno = sc.nextInt();
+            }
+
+            switch (opcionTurno) {
+                case 1:
+                    atacar(equipo, enemigo);
+                    break;
+                case 2:
+                    cambiarPokemon(equipo);
+                    break;
+                case 3:
+                    usarItem(equipo);
+                    break;
+                case 4:
+                    System.out.println("Has huido del combate.");
+                    return false;
+            }
+
+            if (!enemigo.estaVivo()) {
+                System.out.println("¡Has derrotado a " + enemigo.getNombre() + "!");
+                victoria = true;
+                combateTerminado = true;
+            } else if (enemigo.estaVivo()) {
+                Ataque ataqueEnemigo = enemigo.ataques.get((int)(Math.random() * enemigo.ataques.size()));
+                enemigo.atacar(equipo.get(0), ataqueEnemigo);
+            }
+
+            if (equipo.get(0).estaDebilitado()) {
+                System.out.println("¡" + equipo.get(0).getNombre() + " ha sido derrotado!");
+                // No eliminar del equipo, solo cambiar al siguiente vivo
+                if (!hayPokemonVivo(equipo)) {
+                    System.out.println("¡Te has quedado sin Pokémon!");
+                    combateTerminado = true;
+                } else {
+                    System.out.println("Elige un nuevo Pokémon:");
+                    cambiarPokemon(equipo);
+                }
+            }
+        }
+        return victoria && hayPokemonVivo(equipo);
+    }
+
+    private static boolean hayPokemonVivo(ArrayList<Pokemon> equipo) {
+        for (Pokemon p : equipo) {
+            if (!p.estaDebilitado()) return true;
+        }
+        return false;
+    }
+
+    private static void atacar(ArrayList<Pokemon> equipo, Pokemon enemigo) {
+        if (equipo.get(0).estaDebilitado()) {
+            System.out.println("¡No puedes atacar con un Pokémon debilitado!");
+            return;
+        }
+        System.out.println("Elige un ataque:");
+        ArrayList<Ataque> ataques = equipo.get(0).ataques;
+        for (int i = 0; i < ataques.size(); i++) {
+            System.out.println((i+1) + ". " + ataques.get(i).getNombre() + " (Daño: " + ataques.get(i).getDaño() + ")");
+        }
+        int opcionAtaque = 0;
+        while (opcionAtaque < 1 || opcionAtaque > ataques.size()) {
+            System.out.print("Opción: ");
+            opcionAtaque = sc.nextInt();
+        }
+        Ataque ataqueJugador = ataques.get(opcionAtaque-1);
+        equipo.get(0).atacar(enemigo, ataqueJugador);
+    }
+
+    private static void cambiarPokemon(ArrayList<Pokemon> equipo) {
+        System.out.println("\n--- Cambiar Pokémon ---");
+        printNombresEquipo(equipo);
+        int opcion = 0;
+        while (opcion < 1 || opcion > equipo.size() || equipo.get(opcion - 1).estaDebilitado()) {
+            System.out.print("Elige un Pokémon (1-" + equipo.size() + ", no debilitado): ");
+            opcion = sc.nextInt();
+        }
+        if (opcion != 1) {
+            Collections.swap(equipo, 0, opcion - 1);
+            System.out.println(equipo.get(0).getNombre() + " entra al combate!");
+        }
+    }
+
+    private static void usarItem(ArrayList<Pokemon> equipo) {
+        System.out.println("\n¿Qué objeto quieres usar?");
+        System.out.println("1. Poción (+50 PS)\n2. Superpoción (+150 PS)\n3. Revivir");
+        int opcionItem = sc.nextInt();
+
+        switch(opcionItem) {
+            case 1:
+                if(Menu.mochila.usarItem("Poción")) {
+                    equipo.get(0).curar(50);
+                    System.out.println(equipo.get(0).getNombre() + " recuperó 50 PS!");
+                } else {
+                    System.out.println("¡No tienes Pociones!");
+                }
+                break;
+            case 2:
+                if(Menu.mochila.usarItem("Superpoción")) {
+                    equipo.get(0).curar(150);
+                    System.out.println(equipo.get(0).getNombre() + " recuperó 150 PS!");
+                } else {
+                    System.out.println("¡No tienes Superpociones!");
+                }
+                break;
+            case 3:
+                if(equipo.get(0).estaDebilitado()) {
+                    if(Menu.mochila.usarItem("Revivir")) {
+                        equipo.get(0).revivir();
+                        System.out.println(equipo.get(0).getNombre() + " ha sido revivido y está a máxima salud!");
+                    } else {
+                        System.out.println("¡No tienes Revivir!");
+                    }
+                } else {
+                    System.out.println("¡Este Pokémon no está debilitado!");
+                }
+                break;
+        }
+    }
+
+    public static void printNombresEquipo(ArrayList<Pokemon> equipo) {
+        int cont = 1;
+        for (Pokemon p : equipo) {
+            System.out.print(cont++ + ". ");
+            p.mostrarStats();
+        }
+    }
+}
