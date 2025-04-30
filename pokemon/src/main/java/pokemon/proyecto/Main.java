@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static int cliricomblins = 0; // Cambiado de "dinero" a "cliricomblins"
+    public static int cliricomblins = 0;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
