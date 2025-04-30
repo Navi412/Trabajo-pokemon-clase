@@ -52,7 +52,7 @@ public class Gym {
         return currentTrainerIndex < entrenadores.size();
     }
 
-    // CORRECCIÓN: Añadido el método que faltaba
+    // Este método soluciona el error de la imagen
     public ArrayList<EntrenadorGym> getEntrenadores() {
         return entrenadores;
     }
