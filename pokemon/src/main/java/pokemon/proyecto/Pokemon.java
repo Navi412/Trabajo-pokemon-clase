@@ -1,6 +1,7 @@
 package pokemon.proyecto;
 
 import java.util.ArrayList;
+import pokemon.*;
 
 public class Pokemon {
     private String nombre;
@@ -23,13 +24,27 @@ public class Pokemon {
         this.experienciaParaSubir = 100 + (nivel - 1) * 25;
     }
 
-    public String getNombre() { return nombre; }
-    public int getNivel() { return nivel; }
-    public int getVida() { return vida; }
-    public int getVidaMaxima() { return vidaMaxima; }
-    public int getExperiencia() { return experiencia; }
-    public String getTipo() { return tipo; }
-    public int getExperienciaParaSubir() { return experienciaParaSubir; }
+    public String getNombre() { 
+        return nombre; 
+    }
+    public int getNivel() { 
+        return nivel; 
+    }
+    public int getVida() { 
+        return vida; 
+    }
+    public int getVidaMaxima() { 
+        return vidaMaxima; 
+    }
+    public int getExperiencia() { 
+        return experiencia; 
+    }
+    public String getTipo() { 
+        return tipo; 
+    }
+    public int getExperienciaParaSubir() { 
+        return experienciaParaSubir; 
+    }
 
     public void setVida(int vida) {
         this.vida = Math.max(0, Math.min(vida, vidaMaxima));
@@ -52,7 +67,7 @@ public class Pokemon {
 
     private void subirNivelSinMensaje() {
         this.nivel++;
-        this.vidaMaxima = (int)(this.vidaMaxima * 1.2);
+        this.vidaMaxima = (int)(this.vidaMaxima * 1.1); 
         this.experienciaParaSubir += 25;
         // Aumentar el daño de todos los ataques al subir de nivel (+5%)
         for (Ataque ataque : ataques) {
