@@ -1,6 +1,7 @@
 package pokemon.proyecto;
 
 import java.util.ArrayList;
+import pokemon.*;
 
 public class EntrenadorGym {
     private String nombre;
@@ -15,15 +16,19 @@ public class EntrenadorGym {
         this.pokemons = generarEquipo();
     }
 
-    private ArrayList<Pokemon> generarEquipo() {
+    public ArrayList<Pokemon> generarEquipo() {
         ArrayList<Pokemon> equipo = new ArrayList<>();
         ArrayList<Ataque> ataques = new ArrayList<>();
 
         switch(tipoEspecialidad) {
-            case "Agua": ataques.add(new Ataque("Hidrobomba", 20)); break;
-            case "Fuego": ataques.add(new Ataque("Lanzallamas", 20)); break;
-            case "Planta": ataques.add(new Ataque("Hoja Afilada", 20)); break;
-            case "Eléctrico": ataques.add(new Ataque("Rayo", 20)); break;
+            case "Agua": ataques.add(new Ataque("Hidrobomba", 20)); 
+                break;
+            case "Fuego": ataques.add(new Ataque("Lanzallamas", 20)); 
+                break;
+            case "Planta": ataques.add(new Ataque("Hoja Afilada", 20)); 
+                break;
+            case "Eléctrico": ataques.add(new Ataque("Rayo", 20)); 
+                break;
         }
 
         for(int i = 0; i < cantidadPokemon; i++) {
@@ -43,19 +48,37 @@ public class EntrenadorGym {
     }
 
     private String obtenerNombrePokemon(String tipo, int index) {
-        switch(tipo) {
-            case "Agua": return new String[]{"Squirtle", "Wartortle", "Blastoise"}[index];
-            case "Fuego": return new String[]{"Charmander", "Charmeleon", "Charizard"}[index];
-            case "Planta": return new String[]{"Bulbasaur", "Ivysaur", "Venusaur"}[index];
-            case "Eléctrico": return new String[]{"Pikachu", "Raichu", "Electabuzz"}[index];
-            default: return "Pokémon";
+        switch (tipo) {
+            case "Agua":
+                String[] agua = {"Gyarados", "Greninja", "Vaporeon"};
+                return agua[index];
+
+            case "Fuego":
+                String[] fuego = {"Cinderace", "Darmanitan", "Incineroar"};
+                return fuego[index];
+
+            case "Planta":
+                String[] planta = {"Leafeon", "Serperior", "Breloom"};
+                return planta[index];
+
+            case "Eléctrico":
+                String[] electrico = {"Zekrom", "Thundurus", "Manectric"};
+                return electrico[index];
+
+            default:
+                return "Pokemon";
         }
     }
+    
 
     public void setPokemons(ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 
-    public String getNombre() { return nombre; }
-    public ArrayList<Pokemon> getPokemons() { return pokemons; }
+    public String getNombre() { 
+        return nombre; 
+    }
+    public ArrayList<Pokemon> getPokemons() { 
+        return pokemons; 
+    }
 }
