@@ -33,7 +33,7 @@ public class Combate {
 
         while (!combateTerminado && comprobarPokemonVivo(equipo) && enemigo.estaVivo()) {
             System.out.println("\n--- Estado del combate ---");
-            System.out.println("Tu Pokemon activo:");
+            System.out.println("Tu Pokemon en uso:");
             equipo.get(0).mostrarStats();
             System.out.println("Enemigo:");
             enemigo.mostrarStats();
