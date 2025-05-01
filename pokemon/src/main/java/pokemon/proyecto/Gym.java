@@ -1,10 +1,11 @@
 package pokemon.proyecto;
 
 import java.util.ArrayList;
+import pokemon.*;
 
 public class Gym {
     private ArrayList<EntrenadorGym> entrenadores;
-    private int currentTrainerIndex = 0;
+    private int numerinEntrenador = 0;
 
     public Gym() {
         this.entrenadores = new ArrayList<>();
@@ -24,35 +25,52 @@ public class Gym {
 
     private ArrayList<Pokemon> generarEquipoMixto() {
         ArrayList<Pokemon> equipo = new ArrayList<>();
-        equipo.add(new Pokemon("Blastoise", 15, 85, 85, 0, "Agua", new ArrayList<>() {{ add(new Ataque("Hidrobomba", 20)); }}));
-        equipo.add(new Pokemon("Charizard", 15, 90, 90, 0, "Fuego", new ArrayList<>() {{ add(new Ataque("Lanzallamas", 20)); }}));
-        equipo.add(new Pokemon("Venusaur", 15, 80, 80, 0, "Planta", new ArrayList<>() {{ add(new Ataque("Hoja Afilada", 20)); }}));
-        equipo.add(new Pokemon("Raichu", 15, 70, 70, 0, "Eléctrico", new ArrayList<>() {{ add(new Ataque("Rayo", 20)); }}));
+    
+        ArrayList<Ataque> ataquesBlastoise = new ArrayList<>();
+        ataquesBlastoise.add(new Ataque("Hidrobomba", 20));
+        Pokemon blastoise = new Pokemon("Blastoise", 15, 85, 85, 0, "Agua", ataquesBlastoise);
+        equipo.add(blastoise);
+    
+        ArrayList<Ataque> ataquesCharizard = new ArrayList<>();
+        ataquesCharizard.add(new Ataque("Lanzallamas", 20));
+        Pokemon charizard = new Pokemon("Charizard", 15, 90, 90, 0, "Fuego", ataquesCharizard);
+        equipo.add(charizard);
+    
+        ArrayList<Ataque> ataquesVenusaur = new ArrayList<>();
+        ataquesVenusaur.add(new Ataque("Hoja Afilada", 20));
+        Pokemon venusaur = new Pokemon("Venusaur", 15, 80, 80, 0, "Planta", ataquesVenusaur);
+        equipo.add(venusaur);
+    
+        ArrayList<Ataque> ataquesRaichu = new ArrayList<>();
+        ataquesRaichu.add(new Ataque("Rayo", 20));
+        Pokemon raichu = new Pokemon("Raichu", 15, 70, 70, 0, "Eléctrico", ataquesRaichu);
+        equipo.add(raichu);
+    
         return equipo;
     }
+    
 
-    public void reiniciarGimnasio() {
+    public void resetarGimnasio() {
         entrenadores.clear();
-        currentTrainerIndex = 0;
+        numerinEntrenador = 0;
         inicializarGimnasio();
     }
 
     public EntrenadorGym getEntrenadorActual() {
-        if (currentTrainerIndex < entrenadores.size()) {
-            return entrenadores.get(currentTrainerIndex);
+        if (numerinEntrenador < entrenadores.size()) {
+            return entrenadores.get(numerinEntrenador);
         }
         return null;
     }
 
     public void siguienteEntrenador() {
-        currentTrainerIndex++;
+        numerinEntrenador++;
     }
 
-    public boolean quedanEntrenadores() {
-        return currentTrainerIndex < entrenadores.size();
+    public boolean comprobarEntrenadores() {
+        return numerinEntrenador < entrenadores.size();
     }
 
-    // SOLUCIÓN AL ERROR DE LA IMAGEN
     public ArrayList<EntrenadorGym> getEntrenadores() {
         return entrenadores;
     }
