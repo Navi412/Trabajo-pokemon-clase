@@ -1,5 +1,7 @@
 package pokemon.proyecto;
 
+import pokemon.*;
+
 public class Ataque {
     private String nombre;
     private int daño;
