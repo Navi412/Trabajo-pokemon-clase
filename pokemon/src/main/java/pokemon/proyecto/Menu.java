@@ -1,5 +1,6 @@
 package pokemon.proyecto;
 
+import pokemon.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,7 +31,6 @@ public class Menu {
                             System.out.println("\n--- Combate contra " + entrenador.getNombre() + " ---");
                             int expGanada = 0;
                             boolean victoria = true;
-
                             for (Pokemon enemigo : entrenador.getPokemons()) {
                                 boolean resultado = Combate.iniciarCombate(equipo, enemigo);
                                 if (!resultado) {
@@ -56,9 +56,11 @@ public class Menu {
                                 }
                                 gym.siguienteEntrenador();
 
-                                if (!gym.quedanEntrenadores()) {
-                                    System.out.println("\n¡FELICIDADES! ¡HAS GANADO EL GIMNASIO!");
+                                if (!gym.comprobarEntrenadores()) {
+                                    System.out.println("\n----------- ¡FELICIDADES! ----------- ");
+                                    System.out.println("\n--- Has ganado el Gimnasio y obtenido la MEDALLA IFP ENHORABUENAAA  ´´ GOD CABRON `` --- ");                            
                                     enGimnasio = false;
+                                    LecturaEscrituraFichero.guardar(Main.cliricomblins, equipo);
                                 }
                             } else {
                                 System.out.println("¡Has perdido el desafío!");
@@ -73,7 +75,7 @@ public class Menu {
                 case "2":
                     gym = new Gym();
                     enGimnasio = true;
-                    System.out.println("\n¡Bienvenido al Gimnasio Pokémon!");
+                    System.out.println("\n¡Bienvenido al Gimnasio Pokemon!");
                     System.out.println("Usa la opción 1 para enfrentarte al primer entrenador.");
                     break;
 
@@ -83,7 +85,7 @@ public class Menu {
                     System.out.println("\n1. Usar objeto\n2. Volver");
                     String opcionMochila = sc.nextLine();
                     if (opcionMochila.equals("1")) {
-                        usarItemFueraCombate(equipo, sc);
+                        usarItemFueraDeCombate(equipo, sc);
                     }
                     break;
 
@@ -100,6 +102,7 @@ public class Menu {
 
                 case "6":
                     System.out.println("¡Gracias por jugar!");
+                    LecturaEscrituraFichero.guardar(Main.cliricomblins, equipo);
                     return;
                 default:
                     System.out.println("Opción no válida. Intenta de nuevo.");
@@ -113,7 +116,7 @@ public class Menu {
         System.out.println("Cliricomblins: " + Main.cliricomblins);
         System.out.println("1. Poción (200 Cliricomblins) - Restaura 50 PS");
         System.out.println("2. Superpoción (500 Cliricomblins) - Restaura 150 PS");
-        System.out.println("3. Revivir (800 Cliricomblins) - Revive a un Pokémon debilitado y restaura toda su vida");
+        System.out.println("3. Revivir (800 Cliricomblins) - Revive a un Pokemon debilitado y restaura toda su vida");
         System.out.println("4. Salir");
         System.out.print("Elige: ");
         String opcion = sc.nextLine();
@@ -149,12 +152,12 @@ public class Menu {
         }
     }
 
-    private static void usarItemFueraCombate(ArrayList<Pokemon> equipo, Scanner sc) {
+    private static void usarItemFueraDeCombate(ArrayList<Pokemon> equipo, Scanner sc) {
         System.out.println("\n¿Qué objeto quieres usar?");
         System.out.println("1. Poción\n2. Superpoción\n3. Revivir");
         String opcionItem = sc.nextLine();
 
-        System.out.println("¿En qué Pokémon?");
+        System.out.println("¿En qué Pokemon?");
         for(int i = 0; i < equipo.size(); i++) {
             Pokemon p = equipo.get(i);
             System.out.println((i+1) + ". " + p.getNombre() + (p.estaDebilitado() ? " (Debilitado)" : " - PS: " + p.getVida() + "/" + p.getVidaMaxima()));
@@ -166,7 +169,7 @@ public class Menu {
             switch(opcionItem) {
                 case "1":
                     if(p.estaDebilitado()) {
-                        System.out.println("¡No puedes usar una Poción en un Pokémon debilitado!");
+                        System.out.println("¡No puedes usar una Poción en un Pokemon debilitado!");
                     } else if(mochila.usarItem("Poción")) {
                         p.curar(50);
                         System.out.println(p.getNombre() + " recuperó 50 PS!");
@@ -176,7 +179,7 @@ public class Menu {
                     break;
                 case "2":
                     if(p.estaDebilitado()) {
-                        System.out.println("¡No puedes usar una Superpoción en un Pokémon debilitado!");
+                        System.out.println("¡No puedes usar una Superpoción en un Pokemon debilitado!");
                     } else if(mochila.usarItem("Superpoción")) {
                         p.curar(150);
                         System.out.println(p.getNombre() + " recuperó 150 PS!");
@@ -193,7 +196,7 @@ public class Menu {
                             System.out.println("¡No tienes Revivir!");
                         }
                     } else {
-                        System.out.println("¡Este Pokémon no está debilitado!");
+                        System.out.println("¡Este Pokemon no está debilitado!");
                     }
                     break;
             }
