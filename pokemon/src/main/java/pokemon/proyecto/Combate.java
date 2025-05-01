@@ -162,7 +162,7 @@ public class Combate {
                     equipo.get(0).curar(150);
                     System.out.println(equipo.get(0).getNombre() + " ha regenerado 150 PS!");
                 } else {
-                    System.out.println("¡No tienes Superpciones!"); /* Cambio en el Superpociones */
+                    System.out.println("¡No tienes Superpciones!");
                 }
                 break;
             case 3:
