@@ -41,7 +41,7 @@ public class Main {
         pokemonsDisponibles.add(new Pokemon("Snivy", 5, 55, 55, 0, "Planta", ataquesPlanta));
 
         ArrayList<Pokemon> equipo = new ArrayList<>();
-        System.out.println("Selecciona 6 pokemons para tu equipo:");
+        System.out.println("Selecciona 6 Pokemons para tu equipo:");
         while (equipo.size() < 6) {
             System.out.println("\nPokemons disponibles:");
             for (int i = 0; i < pokemonsDisponibles.size(); i++) {
