@@ -1,6 +1,7 @@
 package pokemon.proyecto;
 
 import java.util.HashMap;
+import pokemon.*;
 
 public class Mochila {
     private HashMap<String, Integer> items;
