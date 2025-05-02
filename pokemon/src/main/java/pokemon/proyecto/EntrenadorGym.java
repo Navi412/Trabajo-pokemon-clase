@@ -15,7 +15,7 @@ public class EntrenadorGym {
         this.cantidadPokemon = cantidad;
         this.pokemons = generarEquipo();
     }
-
+    // Genera los Pokemons para los entrenadores segun el tipo de que tiene asignado cada entrenador
     public ArrayList<Pokemon> generarEquipo() {
         ArrayList<Pokemon> equipo = new ArrayList<>();
         ArrayList<Ataque> ataques = new ArrayList<>();
@@ -46,7 +46,7 @@ public class EntrenadorGym {
         }
         return equipo;
     }
-
+    // Pokemons contrincantes
     private String obtenerNombrePokemon(String tipo, int index) {
         switch (tipo) {
             case "Agua":
