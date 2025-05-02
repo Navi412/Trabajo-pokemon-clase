@@ -27,7 +27,10 @@ public class Mochila {
 
     public void mostrarContenido() {
         System.out.println("\n--- Contenido de la mochila ---");
-        items.forEach((k, v) -> System.out.println(k + ": " + v));
+        for (String k : items.keySet()) {
+            Integer v = items.get(k);
+            System.out.println(k + ": " + v);
+        }
     }
 
     public HashMap<String, Integer> getItems() {
