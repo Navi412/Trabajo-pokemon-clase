@@ -19,7 +19,10 @@ public class Menu {
             System.out.println("3. Mochila");
             System.out.println("4. Ver equipo");
             System.out.println("5. Tienda");
-            System.out.println("6. Salir");
+            if (Main.victoria) {
+                System.out.println("6. Ver datos guardados");
+            }
+            System.out.println("7. Salir");
             System.out.print("Opción: ");
             respuesta = sc.nextLine();
 
@@ -60,6 +63,7 @@ public class Menu {
                                     System.out.println("\n----------- ¡FELICIDADES! ----------- ");
                                     System.out.println("\n--- Has ganado el Gimnasio y obtenido la MEDALLA IFP ENHORABUENAAA  ´´ GOD CABRON `` --- ");                            
                                     enGimnasio = false;
+                                    Main.victoria = true;
                                     LecturaEscrituraFichero.guardar(Main.cliricomblins, equipo);
                                 }
                             } else {
@@ -101,9 +105,13 @@ public class Menu {
                     break;
 
                 case "6":
-                    System.out.println("¡Gracias por jugar!");
-                    LecturaEscrituraFichero.guardar(Main.cliricomblins, equipo);
-                    return;
+                    if (Main.victoria) {
+                        System.out.println("\n--- Datos Guardados ---");
+                        LecturaEscrituraFichero.mostrarContenidoFichero();
+                } else {
+                    System.out.println("¡Aún no has ganado el gimnasio! Completa el desafío primero.");
+                }
+                break;
                 default:
                     System.out.println("Opción no válida. Intenta de nuevo.");
                     break;
@@ -113,7 +121,7 @@ public class Menu {
 
     private static void tienda(Scanner sc) {
         System.out.println("\n--- Tienda ---");
-        System.out.println("Cliricomblins: " + Main.cliricomblins);
+        System.out.println(" "+ "Cliricomblins: " + Main.cliricomblins);
         System.out.println("1. Poción (200 Cliricomblins) - Restaura 50 PS");
         System.out.println("2. Superpoción (500 Cliricomblins) - Restaura 150 PS");
         System.out.println("3. Revivir (800 Cliricomblins) - Revive a un Pokemon debilitado y restaura toda su vida");
