@@ -6,6 +6,7 @@ import pokemon.*;
 
 public class Main {
     public static int cliricomblins = 0;
+    public static boolean victoria = false; 
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -27,18 +28,18 @@ public class Main {
         ataquesPlanta.add(new Ataque("Placaje", 10));
 
         ArrayList<Pokemon> pokemonsDisponibles = new ArrayList<>();
-        pokemonsDisponibles.add(new Pokemon("Pikachu", 5, 35, 35, 0, "Eléctrico", ataquesElectricos));
-        pokemonsDisponibles.add(new Pokemon("Zapdos", 5, 60, 60, 0, "Eléctrico", ataquesElectricos));
-        pokemonsDisponibles.add(new Pokemon("Jolteon", 5, 65, 65, 0, "Eléctrico", ataquesElectricos));
-        pokemonsDisponibles.add(new Pokemon("Charmander", 5, 39, 39, 0, "Fuego", ataquesFuego));
-        pokemonsDisponibles.add(new Pokemon("Tepig", 5, 38, 38, 0, "Fuego", ataquesFuego));
-        pokemonsDisponibles.add(new Pokemon("Growlithe", 5, 48, 48, 0, "Fuego", ataquesFuego));
-        pokemonsDisponibles.add(new Pokemon("Squirtle", 5, 44, 44, 0, "Agua", ataquesAgua));
-        pokemonsDisponibles.add(new Pokemon("Psyduck", 5, 50, 50, 0, "Agua", ataquesAgua));
-        pokemonsDisponibles.add(new Pokemon("Totodile", 5, 50, 50, 0, "Agua", ataquesAgua));
-        pokemonsDisponibles.add(new Pokemon("Bulbasaur", 5, 45, 45, 0, "Planta", ataquesPlanta));
-        pokemonsDisponibles.add(new Pokemon("Chikorita", 5, 40, 40, 0, "Planta", ataquesPlanta));
-        pokemonsDisponibles.add(new Pokemon("Snivy", 5, 55, 55, 0, "Planta", ataquesPlanta));
+        pokemonsDisponibles.add(new Pokemon("Pikachu", 3, 25, 25, 0, "Eléctrico", ataquesElectricos));
+        pokemonsDisponibles.add(new Pokemon("Zapdos", 3, 50, 50, 0, "Eléctrico", ataquesElectricos));
+        pokemonsDisponibles.add(new Pokemon("Jolteon", 3, 55, 55, 0, "Eléctrico", ataquesElectricos));
+        pokemonsDisponibles.add(new Pokemon("Charmander", 3, 29, 29, 0, "Fuego", ataquesFuego));
+        pokemonsDisponibles.add(new Pokemon("Tepig", 3, 28, 28, 0, "Fuego", ataquesFuego));
+        pokemonsDisponibles.add(new Pokemon("Growlithe", 3, 38, 38, 0, "Fuego", ataquesFuego));
+        pokemonsDisponibles.add(new Pokemon("Squirtle", 3, 34, 34, 0, "Agua", ataquesAgua));
+        pokemonsDisponibles.add(new Pokemon("Psyduck", 3, 40, 40, 0, "Agua", ataquesAgua));
+        pokemonsDisponibles.add(new Pokemon("Totodile", 3, 40, 40, 0, "Agua", ataquesAgua));
+        pokemonsDisponibles.add(new Pokemon("Bulbasaur", 3, 35, 35, 0, "Planta", ataquesPlanta));
+        pokemonsDisponibles.add(new Pokemon("Chikorita", 3, 30, 30, 0, "Planta", ataquesPlanta));
+        pokemonsDisponibles.add(new Pokemon("Snivy", 3, 45, 45, 0, "Planta", ataquesPlanta));
 
         ArrayList<Pokemon> equipo = new ArrayList<>();
         System.out.println("Selecciona 6 Pokemons para tu equipo:");
