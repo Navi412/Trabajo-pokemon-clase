@@ -15,7 +15,7 @@ public class Combate {
         boolean combateTerminado = false;
         boolean victoria = false;
 
-        // Elegir Pokémon inicial que no esté debilitado
+        // Verifica si el Pokemon esta muerto
         while (equipo.size() > 1 && equipo.get(0).estaDebilitado()) {
             System.out.println("\n--- Elige el Pokemon para comenzar el combate ---");
             printNombresEquipo(equipo);
@@ -31,6 +31,7 @@ public class Combate {
             }
         }
 
+        // Bucle de la gestion de turnos
         while (!combateTerminado && comprobarPokemonVivo(equipo) && enemigo.estaVivo()) {
             System.out.println("\n--- Estado del combate ---");
             System.out.println("Tu Pokemon en uso:");
@@ -51,31 +52,32 @@ public class Combate {
 
             switch (opcionTurno) {
                 case 1:
-                    atacar(equipo, enemigo);
+                    atacar(equipo, enemigo);  // Ataca al enemigo
                     break;
                 case 2:
-                    cambiarPokemon(equipo);
+                    cambiarPokemon(equipo);  // Cambia de Pokemon
                     break;
                 case 3:
-                    usarItem(equipo);
+                    usarItem(equipo);        // Usa un objeto
                     break;
                 case 4:
                     System.out.println("Has huido del combate.");
                     return false;
             }
 
+            // Imprimir por pantalla cuando un Pokemon muere
             if (!enemigo.estaVivo()) {
                 System.out.println("¡Has derrotado a " + enemigo.getNombre() + "!");
                 victoria = true;
                 combateTerminado = true;
-            } else if (enemigo.estaVivo()) {
+            } else {
                 Ataque ataqueEnemigo = enemigo.ataques.get((int)(Math.random() * enemigo.ataques.size()));
                 enemigo.atacar(equipo.get(0), ataqueEnemigo);
             }
 
+            // Si el Pokemon está muerto te da la opción de cambiarlo
             if (equipo.get(0).estaDebilitado()) {
                 System.out.println("¡" + equipo.get(0).getNombre() + " ha sido derrotado!");
-                // No eliminar del equipo, solo cambiar al siguiente vivo
                 if (!comprobarPokemonVivo(equipo)) {
                     System.out.println("¡Te has quedado sin Pokemon!");
                     combateTerminado = true;
@@ -88,23 +90,23 @@ public class Combate {
         return victoria && comprobarPokemonVivo(equipo);
     }
 
+    // Comprueba si hay Pokemons vivos en el equipo
+
     private static boolean comprobarPokemonVivo(ArrayList<Pokemon> equipo) {
-       
         for (Pokemon p : equipo) {
             if (!p.estaDebilitado()) 
                 return true;
         }
-
         return false;
     }
+
 
     private static void atacar(ArrayList<Pokemon> equipo, Pokemon enemigo) {
         if (equipo.get(0).estaDebilitado()) {
             System.out.println("¡No puedes atacar con un Pokemon debilitado!");
             return;
         }
-
-
+        // Permite al jugador seleccionar un ataque
         System.out.println("Elige un ataque:");
         ArrayList<Ataque> ataques = equipo.get(0).ataques;
         for (int i = 0; i < ataques.size(); i++) {
@@ -119,10 +121,9 @@ public class Combate {
 
         Ataque ataqueJugador = ataques.get(opcionAtaque-1);
         equipo.get(0).atacar(enemigo, ataqueJugador);
-
-
     }
 
+    // Cambiar Pokemon
     private static void cambiarPokemon(ArrayList<Pokemon> equipo) {
         System.out.println("\n--- Cambiar Pokemon ---");
         printNombresEquipo(equipo);
@@ -137,10 +138,10 @@ public class Combate {
             equipo.add(0, pokemonElegido);
             System.out.println(equipo.get(0).getNombre() + " entra al combate!");
         }      
-
     }
 
-
+    
+    //      Usar los objetos de la mochila
     private static void usarItem(ArrayList<Pokemon> equipo) {
         System.out.println("\n¿Qué objeto quieres usar?");
         System.out.println("1. Poción (+50 PS)\n2. Superpoción (+150 PS)\n3. Revivir");
@@ -148,7 +149,6 @@ public class Combate {
 
         switch(opcionItem) {
             case 1:
-
                 if(Menu.mochila.usarItem("Poción")) {
                     equipo.get(0).curar(50);
                     System.out.println(equipo.get(0).getNombre() + " ha regenerado 50 PS!");
@@ -157,30 +157,30 @@ public class Combate {
                 }
                 break;
             case 2:
-
                 if(Menu.mochila.usarItem("Superpocion")) {
                     equipo.get(0).curar(150);
                     System.out.println(equipo.get(0).getNombre() + " ha regenerado 150 PS!");
                 } else {
-                    System.out.println("¡No tienes Superpciones!");
+                    System.out.println("¡No tienes Superpociones!");
                 }
                 break;
             case 3:
-
                 if(equipo.get(0).estaDebilitado()) {
                     if(Menu.mochila.usarItem("Revivir")) {
                         equipo.get(0).revivir();
-                        System.out.println(equipo.get(0).getNombre() + " ha sido revivido y tiene la saluda al máximo!");
+                        System.out.println(equipo.get(0).getNombre() + " ha sido revivido y tiene la salud al máximo!");
                     } else {
                         System.out.println("¡No tienes Revivir!");
                     }
                 } else {
                     System.out.println("¡Este Pokemon no está debilitado!");
                 }
-
                 break;
         }
     }
+
+    
+    // Muestra los nombres y estadisticas del equipo
 
     public static void printNombresEquipo(ArrayList<Pokemon> equipo) {
         int cont = 1;
@@ -190,35 +190,36 @@ public class Combate {
         }
     }
 
-    public class GuardarEstado {
+    // public class GuardarEstado {
 
-        public static void guardarEstadoPokemons(List<Pokemon> pokemons, String nombreArchivo) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
-                for (Pokemon p : pokemons) {
-                    writer.write("Nombre: " + p.getNombre());
-                    writer.newLine();
-                    writer.write("Nivel: " + p.getNivel());
-                    writer.newLine();
-                    writer.write("Vida: " + p.getVida() + "/" + p.getVidaMaxima());
-                    writer.newLine();
-                    writer.write("Experiencia: " + p.getExperiencia() + "/" + p.getExperienciaParaSubir());
-                    writer.newLine();
-                    writer.write("Tipo: " + p.getTipo());
-                    writer.newLine();
-                    writer.write("Ataques:");
-                    writer.newLine();
-                    for (Ataque a : p.ataques) {
-                        writer.write("  - " + a.getNombre() + " (Daño: " + a.getDaño() + ")");
-                        writer.newLine();
-                    }
-                    writer.write("-----------------------------");
-                    writer.newLine();
-                }
-                System.out.println("Estado de los Pokémon guardado en " + nombreArchivo);
-            } catch (IOException e) {
-                System.out.println("Error al guardar el archivo: " + e.getMessage());
-            }
-        }
-}
+        // Guarda los datos de los Pokemon en un txt
 
+    //     public static void guardarEstadoPokemons(List<Pokemon> pokemons, String nombreArchivo) {
+    //         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
+    //             for (Pokemon p : pokemons) {
+    //                 writer.write("Nombree: " + p.getNombre());
+    //                 writer.newLine();
+    //                 writer.write("Nivel: " + p.getNivel());
+    //                 writer.newLine();
+    //                 writer.write("Vida: " + p.getVida() + "/" + p.getVidaMaxima());
+    //                 writer.newLine();
+    //                 writer.write("Experienca: " + p.getExperiencia() + "/" + p.getExperienciaParaSubir());
+    //                 writer.newLine();
+    //                 writer.write("Tipo: " + p.getTipo());
+    //                 writer.newLine();
+    //                 writer.write("Ataques:");
+    //                 writer.newLine();
+    //                 for (Ataque a : p.ataques) {
+    //                     writer.write("  - " + a.getNombre() + " (Daño: " + a.getDaño() + ")");
+    //                     writer.newLine();
+    //                 }
+    //                 writer.write("-----------------------------");
+    //                 writer.newLine();
+    //             }
+    //             System.out.println("Estado de los Pokemon guardado en " + nombreArchivo);
+    //         } catch (IOException e) {
+    //             System.out.println("Error al guardar el archivo: " + e.getMessage());
+    //         }
+    //     }
+    // }
 }
