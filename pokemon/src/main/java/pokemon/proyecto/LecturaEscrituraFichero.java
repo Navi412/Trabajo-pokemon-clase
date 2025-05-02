@@ -1,17 +1,21 @@
 package pokemon.proyecto;
 
 import pokemon.*;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class LecturaEscrituraFichero {
 
-    private static final String nombre_archivo = "datos_juego.txt";
+    private static String nombre_archivo = "datos_juego.txt";
 
     public static void guardar(int dinero, ArrayList<Pokemon> equipo) {
         File archivo = new File(nombre_archivo);
+
         try (FileWriter fw = new FileWriter(archivo)) {
             fw.write("Dinero actual (Cliricomblins): " + dinero + "\n\n");
             fw.write("Pokemons y sus Stats:\n");
@@ -26,7 +30,28 @@ public class LecturaEscrituraFichero {
             fw.flush();
             System.out.println("Archivo de datos del juego creado: " + nombre_archivo);
         } catch (IOException e) {
-            System.out.println("Error guardando datos finales: " + e.getMessage());
+            System.out.println("Error guardando datos: " + e.getMessage());
+        }
+    }
+
+
+    public static void mostrarContenidoFichero() {
+        File archivo = new File("datos_juego.txt");
+
+        if (!archivo.exists()) {
+            System.out.println("El archivo no existe. No se pueden mostrar los datos guardados.");
+            return;
+        }
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("datos_juego.txt"));
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea); 
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error al leer el fichero: " + e.getMessage());
         }
     }
 }
