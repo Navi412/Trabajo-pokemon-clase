@@ -189,37 +189,4 @@ public class Combate {
             p.mostrarStats();
         }
     }
-
-    // public class GuardarEstado {
-
-        // Guarda los datos de los Pokemon en un txt
-
-    //     public static void guardarEstadoPokemons(List<Pokemon> pokemons, String nombreArchivo) {
-    //         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
-    //             for (Pokemon p : pokemons) {
-    //                 writer.write("Nombree: " + p.getNombre());
-    //                 writer.newLine();
-    //                 writer.write("Nivel: " + p.getNivel());
-    //                 writer.newLine();
-    //                 writer.write("Vida: " + p.getVida() + "/" + p.getVidaMaxima());
-    //                 writer.newLine();
-    //                 writer.write("Experienca: " + p.getExperiencia() + "/" + p.getExperienciaParaSubir());
-    //                 writer.newLine();
-    //                 writer.write("Tipo: " + p.getTipo());
-    //                 writer.newLine();
-    //                 writer.write("Ataques:");
-    //                 writer.newLine();
-    //                 for (Ataque a : p.ataques) {
-    //                     writer.write("  - " + a.getNombre() + " (Daño: " + a.getDaño() + ")");
-    //                     writer.newLine();
-    //                 }
-    //                 writer.write("-----------------------------");
-    //                 writer.newLine();
-    //             }
-    //             System.out.println("Estado de los Pokemon guardado en " + nombreArchivo);
-    //         } catch (IOException e) {
-    //             System.out.println("Error al guardar el archivo: " + e.getMessage());
-    //         }
-    //     }
-    // }
 }
