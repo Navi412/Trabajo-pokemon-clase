@@ -69,11 +69,11 @@ public class Pokemon {
         this.nivel++;
         this.vidaMaxima = (int)(this.vidaMaxima * 1.1); 
         this.experienciaParaSubir += 25;
-        // Aumentar el daño de todos los ataques al subir de nivel (+5%)
+        // Aumenta el daño cada vez que subes de nivel un 5%
         for (Ataque ataque : ataques) {
             int nuevoDaño = (int)(ataque.getDaño() * 1.05);
             if (nuevoDaño == ataque.getDaño()) {
-                nuevoDaño++; // Asegura que siempre suba al menos 1 si hay redondeo
+                nuevoDaño++;
             }
             ataque.setDaño(nuevoDaño);
         }
