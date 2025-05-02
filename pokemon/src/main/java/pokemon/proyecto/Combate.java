@@ -3,10 +3,6 @@ package pokemon.proyecto;
 import pokemon.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 
 public class Combate {
     private static Scanner sc = new Scanner(System.in);
