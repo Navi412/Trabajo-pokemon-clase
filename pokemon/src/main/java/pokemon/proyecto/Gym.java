@@ -5,6 +5,8 @@ import pokemon.*;
 
 public class Gym {
     private ArrayList<EntrenadorGym> entrenadores;
+
+    // Indice del entrenador con el que se esta combatiendo
     private int numerinEntrenador = 0;
 
     public Gym() {
@@ -12,6 +14,8 @@ public class Gym {
         inicializarGimnasio();
     }
 
+    /* Añade entrenadores al gimnasio con sus respectivos niveles y tipos
+        El último entrenador tiene un equipo mixto */
     private void inicializarGimnasio() {
         entrenadores.add(new EntrenadorGym("Sonia", "Agua", 2));
         entrenadores.add(new EntrenadorGym("Mariano", "Fuego", 2));
@@ -25,37 +29,39 @@ public class Gym {
 
     private ArrayList<Pokemon> generarEquipoMixto() {
         ArrayList<Pokemon> equipo = new ArrayList<>();
-    
+
         ArrayList<Ataque> ataquesBlastoise = new ArrayList<>();
         ataquesBlastoise.add(new Ataque("Hidrobomba", 20));
         Pokemon blastoise = new Pokemon("Blastoise", 15, 85, 85, 0, "Agua", ataquesBlastoise);
         equipo.add(blastoise);
-    
+
         ArrayList<Ataque> ataquesCharizard = new ArrayList<>();
         ataquesCharizard.add(new Ataque("Lanzallamas", 20));
         Pokemon charizard = new Pokemon("Charizard", 15, 90, 90, 0, "Fuego", ataquesCharizard);
         equipo.add(charizard);
-    
+
         ArrayList<Ataque> ataquesVenusaur = new ArrayList<>();
         ataquesVenusaur.add(new Ataque("Hoja Afilada", 20));
         Pokemon venusaur = new Pokemon("Venusaur", 15, 80, 80, 0, "Planta", ataquesVenusaur);
         equipo.add(venusaur);
-    
+
         ArrayList<Ataque> ataquesRaichu = new ArrayList<>();
         ataquesRaichu.add(new Ataque("Rayo", 20));
         Pokemon raichu = new Pokemon("Raichu", 15, 70, 70, 0, "Eléctrico", ataquesRaichu);
         equipo.add(raichu);
-    
+
         return equipo;
     }
-    
 
+    // Reset del gym
     public void resetarGimnasio() {
         entrenadores.clear();
         numerinEntrenador = 0;
         inicializarGimnasio();
     }
 
+    /* Devuelve el entrenador actual
+    Retorna null si ya no quedan mas entrenadores */
     public EntrenadorGym getEntrenadorActual() {
         if (numerinEntrenador < entrenadores.size()) {
             return entrenadores.get(numerinEntrenador);
